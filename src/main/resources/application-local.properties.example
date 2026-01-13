@@ -1,0 +1,12 @@
+spring.application.name=questoes
+
+# Datasource Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/spring_questoes_api
+spring.datasource.username=docker
+spring.datasource.password=docker
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA/Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
