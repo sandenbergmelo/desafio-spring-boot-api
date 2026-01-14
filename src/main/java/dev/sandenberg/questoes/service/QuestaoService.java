@@ -2,6 +2,7 @@ package dev.sandenberg.questoes.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
@@ -28,7 +29,7 @@ public class QuestaoService {
     }
 
     public List<Questao> getAll() {
-        return questaoRepository.findAll();
+        return questaoRepository.findAll(Sort.by("id"));
     }
 
     public Questao getById(Long id) throws ResourceNotFound {
