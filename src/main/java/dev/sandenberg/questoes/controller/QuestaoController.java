@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
-import dev.sandenberg.questoes.entity.Questao;
+import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
 import dev.sandenberg.questoes.service.QuestaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,27 +35,27 @@ public class QuestaoController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Criar uma nova questão", description = "Cria uma nova questão com os dados fornecidos")
-    public ResponseEntity<Questao> createQuestao(@Valid @RequestBody QuestaoRequestDTO questaoDTO) {
-        Questao createdQuestao = questaoService.create(questaoDTO);
-
+    public ResponseEntity<QuestaoResponseDTO> createQuestao(@Valid @RequestBody QuestaoRequestDTO questaoDTO) {
+        QuestaoResponseDTO createdQuestao = questaoService.create(questaoDTO);
         return ResponseEntity.created(null).body(createdQuestao);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Obter todas as questões", description = "Retorna uma lista com todas as questões cadastradas")
-    public List<Questao> getAllQuestoes() {
+    public List<QuestaoResponseDTO> getAllQuestoes() {
         return questaoService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Obter questão por ID", description = "Retorna os detalhes de uma questão específica pelo seu ID")
-    public ResponseEntity<Questao> getQuestaoById(@PathVariable @Positive Long id) {
-        Questao questao = questaoService.getById(id);
+    public ResponseEntity<QuestaoResponseDTO> getQuestaoById(@PathVariable @Positive Long id) {
+        QuestaoResponseDTO questao = questaoService.getById(id);
         return ResponseEntity.ok(questao);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Deletar questão por ID", description = "Deleta uma questão específica pelo seu ID")
     public ResponseEntity<Void> deleteQuestaoById(@PathVariable @Positive Long id) {
@@ -63,12 +63,14 @@ public class QuestaoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Atualizar questão por ID", description = "Atualiza os dados de uma questão específica pelo seu ID")
-    public ResponseEntity<Questao> updateQuestaoById(@PathVariable @Positive Long id,
-            @Valid @RequestBody QuestaoRequestDTO questaoDTO) {
-        Questao updatedQuestao = questaoService.updateById(id, questaoDTO);
+    public ResponseEntity<QuestaoResponseDTO> updateQuestaoById(
+            @PathVariable @Positive Long id,
+            @Valid @RequestBody QuestaoRequestDTO questaoDTO
+        ) {
+        QuestaoResponseDTO updatedQuestao = questaoService.updateById(id, questaoDTO);
         return ResponseEntity.ok(updatedQuestao);
     }
 }
