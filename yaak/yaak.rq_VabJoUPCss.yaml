@@ -1,0 +1,37 @@
+type: http_request
+model: http_request
+id: rq_VabJoUPCss
+createdAt: 2026-01-14T18:12:30.679950062
+updatedAt: 2026-01-14T18:13:14.944548734
+workspaceId: wk_MBNMZdDt7V
+folderId: fl_ek4VBu5dHj
+authentication: {}
+authenticationType: null
+body:
+  text: |
+    {
+      "descricao": "${[ faker.lorem.sentence() ]}",
+      "resposta": "${[ faker.lorem.word() ]}",
+      "ano": ${[ faker.number.int(options=b64'eyJtaW4iOiAxOTAwLCAibWF4IjogMjEwMH0') ]},
+      "categoria": "${[ faker.word.noun() ]}"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: TQSTUMrwX2
+method: PUT
+name: Atualizar questão
+sortPriority: 2000.0
+url: ${[ BASE_URL ]}/questoes/:id
+urlParameters:
+- enabled: true
+  name: :id
+  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JFswXS5pZA') ]}
+  id: FbTfkuKbHf
+- enabled: true
+  name: ''
+  value: ''
+  id: nbnzszdQdY

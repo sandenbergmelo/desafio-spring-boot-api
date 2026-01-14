@@ -1,0 +1,14 @@
+type: workspace
+model: workspace
+id: wk_MBNMZdDt7V
+createdAt: 2026-01-14T17:58:33.530702798
+updatedAt: 2026-01-14T17:58:33.530705241
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: Desafio Questoes API Spring boot
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0

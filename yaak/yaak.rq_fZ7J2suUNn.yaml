@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_fZ7J2suUNn
+createdAt: 2026-01-14T18:10:11.130955803
+updatedAt: 2026-01-14T18:12:32.298245234
+workspaceId: wk_MBNMZdDt7V
+folderId: fl_ek4VBu5dHj
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: DELETE
+name: Deletar questão
+sortPriority: 3000.0
+url: ${[ BASE_URL ]}/questoes/:id
+urlParameters:
+- enabled: true
+  name: :id
+  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JFswXS5pZA') ]}
+  id: m98eGTicRa
+- enabled: true
+  name: ''
+  value: ''
+  id: heqD6RnbEK

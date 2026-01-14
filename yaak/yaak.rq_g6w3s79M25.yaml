@@ -1,0 +1,29 @@
+type: http_request
+model: http_request
+id: rq_g6w3s79M25
+createdAt: 2026-01-14T18:00:33.231793775
+updatedAt: 2026-01-14T18:12:32.293439818
+workspaceId: wk_MBNMZdDt7V
+folderId: fl_ek4VBu5dHj
+authentication: {}
+authenticationType: null
+body:
+  text: |
+    {
+      "descricao": "${[ faker.lorem.sentence() ]}",
+      "resposta": "${[ faker.lorem.word() ]}",
+      "ano": ${[ faker.number.int(options=b64'eyJtaW4iOiAxOTAwLCAibWF4IjogMjEwMH0') ]},
+      "categoria": "${[ faker.word.noun() ]}"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: TQSTUMrwX2
+method: POST
+name: Criar questão
+sortPriority: 1000.0
+url: ${[ BASE_URL ]}/questoes
+urlParameters: []
