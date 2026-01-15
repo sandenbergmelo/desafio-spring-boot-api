@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Questao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +25,4 @@ public class Questao {
     private String resposta;
     private Integer ano;
     private String categoria;
-
-    public Questao(String descricao, String resposta, Integer ano, String categoria) {
-        this.descricao = descricao;
-        this.resposta = resposta;
-        this.ano = ano;
-        this.categoria = categoria;
-    }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.sandenberg.questoes.dto.QuestaoFilterDTO;
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
 import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
 import dev.sandenberg.questoes.service.QuestaoService;
@@ -43,8 +45,9 @@ public class QuestaoController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Obter todas as questões", description = "Retorna uma lista com todas as questões cadastradas")
-    public List<QuestaoResponseDTO> getAllQuestoes() {
-        return questaoService.getAll();
+    public ResponseEntity<List<QuestaoResponseDTO>> getAllQuestoesWithFilters(@ModelAttribute QuestaoFilterDTO filterDTO) {
+        List<QuestaoResponseDTO> questoes = questaoService.getAllWithFilters(filterDTO);
+        return ResponseEntity.ok(questoes);
     }
 
     @GetMapping("/{id}")
@@ -68,8 +71,7 @@ public class QuestaoController {
     @Operation(summary = "Atualizar questão por ID", description = "Atualiza os dados de uma questão específica pelo seu ID")
     public ResponseEntity<QuestaoResponseDTO> updateQuestaoById(
             @PathVariable @Positive Long id,
-            @Valid @RequestBody QuestaoRequestDTO questaoDTO
-        ) {
+            @Valid @RequestBody QuestaoRequestDTO questaoDTO) {
         QuestaoResponseDTO updatedQuestao = questaoService.updateById(id, questaoDTO);
         return ResponseEntity.ok(updatedQuestao);
     }

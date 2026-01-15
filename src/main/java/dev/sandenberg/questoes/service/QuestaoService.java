@@ -3,14 +3,17 @@ package dev.sandenberg.questoes.service;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import dev.sandenberg.questoes.dto.QuestaoFilterDTO;
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
 import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
 import dev.sandenberg.questoes.entity.Questao;
 import dev.sandenberg.questoes.exceptions.ResourceNotFound;
 import dev.sandenberg.questoes.mapper.QuestaoMapper;
 import dev.sandenberg.questoes.repository.QuestaoRepository;
+import dev.sandenberg.questoes.specification.QuestaoSpecification;
 
 @Service
 public class QuestaoService {
@@ -28,8 +31,13 @@ public class QuestaoService {
         return questaoMapper.toResponseDto(savedQuestao);
     }
 
-    public List<QuestaoResponseDTO> getAll() {
-        List<Questao> questoes = questaoRepository.findAll(Sort.by("id"));
+    public List<QuestaoResponseDTO> getAllWithFilters(QuestaoFilterDTO filterDTO) {
+        Specification<Questao> specification = Specification
+                .where(QuestaoSpecification.anoEquals(filterDTO.ano()))
+                .and(QuestaoSpecification.categoriaEquals(filterDTO.categoria()))
+                .and(QuestaoSpecification.descricaoContains(filterDTO.descricao()));
+
+        List<Questao> questoes = questaoRepository.findAll(specification, Sort.by("id"));
         return questaoMapper.toResponseDtoList(questoes);
     }
 
