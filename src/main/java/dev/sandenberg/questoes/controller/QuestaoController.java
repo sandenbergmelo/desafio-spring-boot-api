@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.sandenberg.questoes.documentation.ApiNotFoundErrorResponse;
 import dev.sandenberg.questoes.dto.QuestaoFilterDTO;
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
 import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
@@ -53,6 +54,7 @@ public class QuestaoController {
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Obter questão por ID", description = "Retorna os detalhes de uma questão específica pelo seu ID")
+    @ApiNotFoundErrorResponse
     public ResponseEntity<QuestaoResponseDTO> getQuestaoById(@PathVariable @Positive Long id) {
         QuestaoResponseDTO questao = questaoService.getById(id);
         return ResponseEntity.ok(questao);
@@ -61,6 +63,7 @@ public class QuestaoController {
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Deletar questão por ID", description = "Deleta uma questão específica pelo seu ID")
+    @ApiNotFoundErrorResponse
     public ResponseEntity<Void> deleteQuestaoById(@PathVariable @Positive Long id) {
         questaoService.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -69,6 +72,7 @@ public class QuestaoController {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Atualizar questão por ID", description = "Atualiza os dados de uma questão específica pelo seu ID")
+    @ApiNotFoundErrorResponse
     public ResponseEntity<QuestaoResponseDTO> updateQuestaoById(
             @PathVariable @Positive Long id,
             @Valid @RequestBody QuestaoRequestDTO questaoDTO) {

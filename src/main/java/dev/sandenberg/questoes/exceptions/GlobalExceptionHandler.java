@@ -1,25 +1,24 @@
 package dev.sandenberg.questoes.exceptions;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import dev.sandenberg.questoes.dto.ApiErrorDTO;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFound.class)
-    public ResponseEntity<Object> handleResourceNotFound(ResourceNotFound e) {
-        Map<String, Object> body = new LinkedHashMap<>();
+    public ResponseEntity<ApiErrorDTO> handleResourceNotFound(ResourceNotFound e) {
+        ApiErrorDTO body = new ApiErrorDTO(
+                LocalDateTime.now().toString(),
+                HttpStatus.NOT_FOUND.value(),
+                "Recurso não encontrado",
+                e.getMessage());
 
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.NOT_FOUND.value());
-        body.put("error", "Recurso não encontrado");
-        body.put("message", e.getMessage());
-
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 }
