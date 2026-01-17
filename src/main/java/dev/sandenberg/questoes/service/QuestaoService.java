@@ -1,8 +1,7 @@
 package dev.sandenberg.questoes.service;
 
-import java.util.List;
-
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +31,15 @@ public class QuestaoService {
         return questaoMapper.toResponseDto(savedQuestao);
     }
 
-    public List<QuestaoResponseDTO> getAllWithFilters(QuestaoFilterDTO filterDTO) {
+    public Page<QuestaoResponseDTO> getAllWithFilters(Pageable pageable, QuestaoFilterDTO filterDTO) {
         Specification<Questao> filters = Specification
                 .where(QuestaoSpecification.anoEquals(filterDTO.ano()))
                 .and(QuestaoSpecification.categoriaEquals(filterDTO.categoria()))
                 .and(QuestaoSpecification.descricaoContains(filterDTO.descricao()));
 
-        List<Questao> questoes = questaoRepository.findAll(filters, Sort.by("id"));
+        Page<Questao> questoesPage = questaoRepository.findAll(filters, pageable);
 
-        return questaoMapper.toResponseDtoList(questoes);
+        return questoesPage.map(questaoMapper::toResponseDto);
     }
 
     public QuestaoResponseDTO getById(Long id) throws ResourceNotFound {

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_VabJoUPCss
 createdAt: 2026-01-14T18:12:30.679950062
-updatedAt: 2026-01-14T18:13:14.944548734
+updatedAt: 2026-01-17T20:30:47.446271597
 workspaceId: wk_MBNMZdDt7V
 folderId: fl_ek4VBu5dHj
 authentication: {}
@@ -29,9 +29,9 @@ url: ${[ BASE_URL ]}/questoes/:id
 urlParameters:
 - enabled: true
   name: :id
-  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JFswXS5pZA') ]}
+  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JC5jb250ZW50WzBdLmlk') ]}
   id: FbTfkuKbHf
 - enabled: true
   name: ''
   value: ''
-  id: nbnzszdQdY
+  id: I2VvaPg7pj

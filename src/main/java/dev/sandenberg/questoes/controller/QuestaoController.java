@@ -1,7 +1,8 @@
 package dev.sandenberg.questoes.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.sandenberg.questoes.documentation.ApiNotFoundErrorResponse;
+import dev.sandenberg.questoes.dto.PageResponseDTO;
 import dev.sandenberg.questoes.dto.QuestaoFilterDTO;
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
 import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
@@ -40,15 +42,21 @@ public class QuestaoController {
     @Operation(summary = "Criar uma nova questão", description = "Cria uma nova questão com os dados fornecidos")
     public ResponseEntity<QuestaoResponseDTO> createQuestao(@Valid @RequestBody QuestaoRequestDTO questaoDTO) {
         QuestaoResponseDTO createdQuestao = questaoService.create(questaoDTO);
-        return ResponseEntity.created(null).body(createdQuestao);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestao);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Obter todas as questões", description = "Retorna uma lista com todas as questões cadastradas")
-    public ResponseEntity<List<QuestaoResponseDTO>> getAllQuestoesWithFilters(@ModelAttribute QuestaoFilterDTO filterDTO) {
-        List<QuestaoResponseDTO> questoes = questaoService.getAllWithFilters(filterDTO);
-        return ResponseEntity.ok(questoes);
+    @Operation(
+        summary = "Obter todas as questões com filtros",
+        description = "Retorna uma lista paginada de questões com base nos filtros fornecidos"
+    )
+    public ResponseEntity<PageResponseDTO<QuestaoResponseDTO>> getAllQuestoesWithFilters(
+        @ModelAttribute QuestaoFilterDTO filterDTO,
+        @PageableDefault(size = 10, sort = "id") Pageable pageable
+    ) {
+        Page<QuestaoResponseDTO> questoesPage = questaoService.getAllWithFilters(pageable, filterDTO);
+        return ResponseEntity.ok(PageResponseDTO.of(questoesPage));
     }
 
     @GetMapping("/{id}")
@@ -71,7 +79,10 @@ public class QuestaoController {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Atualizar questão por ID", description = "Atualiza os dados de uma questão específica pelo seu ID")
+    @Operation(
+        summary = "Atualizar questão por ID",
+        description = "Atualiza os dados de uma questão específica pelo seu ID"
+    )
     @ApiNotFoundErrorResponse
     public ResponseEntity<QuestaoResponseDTO> updateQuestaoById(
             @PathVariable @Positive Long id,

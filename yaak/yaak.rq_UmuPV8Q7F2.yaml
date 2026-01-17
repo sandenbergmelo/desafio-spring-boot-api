@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_UmuPV8Q7F2
 createdAt: 2026-01-14T17:59:28.383100242
-updatedAt: 2026-01-14T18:12:32.279650726
+updatedAt: 2026-01-17T20:31:44.263201713
 workspaceId: wk_MBNMZdDt7V
 folderId: fl_ek4VBu5dHj
 authentication: {}
@@ -12,7 +12,35 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: Todas as questões
+name: Buscar questões
 sortPriority: 0.0
 url: ${[ BASE_URL ]}/questoes
-urlParameters: []
+urlParameters:
+- enabled: true
+  name: page
+  value: ''
+  id: J2pAmriZIS
+- enabled: true
+  name: size
+  value: ''
+  id: JvrDfAiXQg
+- enabled: true
+  name: sort
+  value: ''
+  id: 2wbj8mz79a
+- enabled: true
+  name: ano
+  value: ''
+  id: ScuUe6izuT
+- enabled: true
+  name: descricao
+  value: ''
+  id: 04VbeaGhZv
+- enabled: true
+  name: categoria
+  value: ''
+  id: i4KaTn7xeq
+- enabled: true
+  name: ''
+  value: ''
+  id: 6qKP4pNEva

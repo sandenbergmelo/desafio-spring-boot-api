@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_ZRmgVTmufV
 createdAt: 2026-01-14T18:58:47.590503275
-updatedAt: 2026-01-16T19:36:34.722936832
+updatedAt: 2026-01-17T20:30:04.933457214
 workspaceId: wk_MBNMZdDt7V
 folderId: fl_ek4VBu5dHj
 authentication: {}
@@ -18,9 +18,9 @@ url: ${[ BASE_URL ]}/questoes/:id
 urlParameters:
 - enabled: true
   name: :id
-  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JFswXS5pZA') ]}
+  value: ${[ response.body.path(request='rq_UmuPV8Q7F2', behavior='always', ttl='0', result='first', join=b64'LCA', path=b64'JC5jb250ZW50WzBdLmlk') ]}
   id: m98eGTicRa
 - enabled: true
   name: ''
   value: ''
-  id: heqD6RnbEK
+  id: 8aZTUTNi3E
