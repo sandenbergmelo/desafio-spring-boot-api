@@ -75,7 +75,8 @@ public class QuestaoController {
     @ApiNotFoundErrorResponse
     public ResponseEntity<QuestaoResponseDTO> updateQuestaoById(
             @PathVariable @Positive Long id,
-            @Valid @RequestBody QuestaoRequestDTO questaoDTO) {
+            @Valid @RequestBody QuestaoRequestDTO questaoDTO
+        ) {
         QuestaoResponseDTO updatedQuestao = questaoService.updateById(id, questaoDTO);
         return ResponseEntity.ok(updatedQuestao);
     }

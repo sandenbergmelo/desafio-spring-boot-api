@@ -28,24 +28,26 @@ public class QuestaoService {
     public QuestaoResponseDTO create(QuestaoRequestDTO questaoRequestDTO) {
         Questao questaoToSave = questaoMapper.requestDtoToEntity(questaoRequestDTO);
         Questao savedQuestao = questaoRepository.save(questaoToSave);
+
         return questaoMapper.toResponseDto(savedQuestao);
     }
 
     public List<QuestaoResponseDTO> getAllWithFilters(QuestaoFilterDTO filterDTO) {
-        Specification<Questao> specification = Specification
+        Specification<Questao> filters = Specification
                 .where(QuestaoSpecification.anoEquals(filterDTO.ano()))
                 .and(QuestaoSpecification.categoriaEquals(filterDTO.categoria()))
                 .and(QuestaoSpecification.descricaoContains(filterDTO.descricao()));
 
-        List<Questao> questoes = questaoRepository.findAll(specification, Sort.by("id"));
+        List<Questao> questoes = questaoRepository.findAll(filters, Sort.by("id"));
+
         return questaoMapper.toResponseDtoList(questoes);
     }
 
     public QuestaoResponseDTO getById(Long id) throws ResourceNotFound {
-        Questao fetched = questaoRepository.findById(id)
+        Questao questao = questaoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Questão não encontrada"));
 
-        return questaoMapper.toResponseDto(fetched);
+        return questaoMapper.toResponseDto(questao);
     }
 
     public QuestaoResponseDTO updateById(Long id, QuestaoRequestDTO questaoRequestDTO) throws ResourceNotFound {
