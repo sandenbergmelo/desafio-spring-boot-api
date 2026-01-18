@@ -1,5 +1,6 @@
 package dev.sandenberg.questoes.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +22,15 @@ public class Questao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String descricao;
+
+    @Column(nullable = false, length = 100)
     private String resposta;
+
+    @Column(nullable = false)
     private Integer ano;
+
+    @Column(nullable = false, length = 50)
     private String categoria;
 }

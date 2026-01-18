@@ -12,7 +12,7 @@ public record QuestaoRequestDTO(
     String descricao,
 
     @NotBlank(message = "A resposta é obrigatória")
-    @Size(min = 1, max = 200, message = "A resposta deve ter entre 1 e 200 caracteres")
+    @Size(min = 1, max = 100, message = "A resposta deve ter entre 1 e 100 caracteres")
     String resposta,
 
     @NotNull(message = "O ano é obrigatório")
