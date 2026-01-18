@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.sandenberg.questoes.documentation.ApiNotFoundErrorResponse;
-import dev.sandenberg.questoes.dto.PageResponseDTO;
 import dev.sandenberg.questoes.dto.QuestaoFilterDTO;
+import dev.sandenberg.questoes.dto.QuestaoPageResponseDTO;
 import dev.sandenberg.questoes.dto.QuestaoRequestDTO;
 import dev.sandenberg.questoes.dto.QuestaoResponseDTO;
 import dev.sandenberg.questoes.service.QuestaoService;
@@ -39,7 +39,10 @@ public class QuestaoController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    @Operation(summary = "Criar uma nova questão", description = "Cria uma nova questão com os dados fornecidos")
+    @Operation(
+        summary = "Criar uma nova questão",
+        description = "Cria uma nova questão com os dados fornecidos"
+    )
     public ResponseEntity<QuestaoResponseDTO> createQuestao(@Valid @RequestBody QuestaoRequestDTO questaoDTO) {
         QuestaoResponseDTO createdQuestao = questaoService.create(questaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdQuestao);
@@ -51,17 +54,20 @@ public class QuestaoController {
         summary = "Obter todas as questões com filtros",
         description = "Retorna uma lista paginada de questões com base nos filtros fornecidos"
     )
-    public ResponseEntity<PageResponseDTO<QuestaoResponseDTO>> getAllQuestoesWithFilters(
-        @Valid @ModelAttribute QuestaoFilterDTO filterDTO,
-        @PageableDefault(size = 10, sort = "id") Pageable pageable
-    ) {
+    public ResponseEntity<QuestaoPageResponseDTO> getAllQuestoesWithFilters(
+            @Valid @ModelAttribute QuestaoFilterDTO filterDTO,
+            @PageableDefault(size = 10, sort = "id") Pageable pageable
+        ) {
         Page<QuestaoResponseDTO> questoesPage = questaoService.getAllWithFilters(pageable, filterDTO);
-        return ResponseEntity.ok(PageResponseDTO.of(questoesPage));
+        return ResponseEntity.ok(QuestaoPageResponseDTO.of(questoesPage));
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Obter questão por ID", description = "Retorna os detalhes de uma questão específica pelo seu ID")
+    @Operation(
+        summary = "Obter questão por ID",
+        description = "Retorna os detalhes de uma questão específica pelo seu ID"
+    )
     @ApiNotFoundErrorResponse
     public ResponseEntity<QuestaoResponseDTO> getQuestaoById(@PathVariable @Positive Long id) {
         QuestaoResponseDTO questao = questaoService.getById(id);

@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-public record PageResponseDTO<T>(
-    List<T> content,
+public record QuestaoPageResponseDTO(
+    List<QuestaoResponseDTO> content,
     int page,
     int size,
     long totalElements,
     int totalPages
 ) {
-    public static <T> PageResponseDTO<T> of(Page<T> page) {
-        return new PageResponseDTO<T>(
+    public static QuestaoPageResponseDTO of(Page<QuestaoResponseDTO> page) {
+        return new QuestaoPageResponseDTO(
             page.getContent(),
             page.getNumber(),
             page.getSize(),
