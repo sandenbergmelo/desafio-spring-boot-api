@@ -31,13 +31,13 @@ public class QuestaoService {
         return questaoMapper.toResponseDto(savedQuestao);
     }
 
-    public Page<QuestaoResponseDTO> getAllWithFilters(Pageable pageable, QuestaoFilterDTO filterDTO) {
+    public Page<QuestaoResponseDTO> getAllWithFilters(Pageable pagination, QuestaoFilterDTO filterDTO) {
         Specification<Questao> filters = Specification
                 .where(QuestaoSpecification.anoEquals(filterDTO.ano()))
                 .and(QuestaoSpecification.categoriaEquals(filterDTO.categoria()))
                 .and(QuestaoSpecification.descricaoContains(filterDTO.descricao()));
 
-        Page<Questao> questoesPage = questaoRepository.findAll(filters, pageable);
+        Page<Questao> questoesPage = questaoRepository.findAll(filters, pagination);
 
         return questoesPage.map(questaoMapper::toResponseDto);
     }

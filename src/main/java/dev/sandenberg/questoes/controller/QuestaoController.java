@@ -52,7 +52,7 @@ public class QuestaoController {
         description = "Retorna uma lista paginada de questões com base nos filtros fornecidos"
     )
     public ResponseEntity<PageResponseDTO<QuestaoResponseDTO>> getAllQuestoesWithFilters(
-        @ModelAttribute QuestaoFilterDTO filterDTO,
+        @Valid @ModelAttribute QuestaoFilterDTO filterDTO,
         @PageableDefault(size = 10, sort = "id") Pageable pageable
     ) {
         Page<QuestaoResponseDTO> questoesPage = questaoService.getAllWithFilters(pageable, filterDTO);
